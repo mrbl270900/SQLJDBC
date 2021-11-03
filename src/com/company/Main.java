@@ -1,6 +1,7 @@
 package com.company;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
@@ -11,6 +12,7 @@ public class Main {
             tbd.connectToTrainData();
             tbd.CreateStatment();
             data = tbd.SQLQueryStations();
+            tbd.SQLDeparturesFromStations();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }finally {

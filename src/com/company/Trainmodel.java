@@ -2,6 +2,7 @@ package com.company;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Trainmodel {
 
@@ -38,4 +39,29 @@ public class Trainmodel {
        }
        return stations;
    }
+
+   public ArrayList<String> SQLDeparturesFromStations() throws SQLException{
+       ArrayList<String> departures = new ArrayList<>();
+       System.out.println("Which station do you wish to find departures for?");
+       Scanner scanner = new Scanner(System.in);
+       String departureStation = scanner.nextLine();
+       String SQL = "SELECT stationname, time FROM Departure WHERE stationname='"+ departureStation + "';";
+       rs = stmt.executeQuery(SQL);
+       while (rs!=null && rs.next()){
+           System.out.println(rs.getString(1) + " time:" + rs.getFloat(2));
+       }
+       return departures;
+   }
+
+    public void pmstmtSQLDeparturesFromStations() throws SQLException{
+        System.out.println("Which station do you wish to find departures for?");
+        Scanner scanner = new Scanner(System.in);
+        String departureStation = scanner.nextLine();
+        String SQL = "SELECT stationname, time FROM Departure WHERE stationname='"+ departureStation + "';";
+        rs = stmt.executeQuery(SQL);
+        while (rs!=null && rs.next()){
+            System.out.println(rs.getString(1) + " time:" + rs.getFloat(2));
+        }
+    }
+
 }

@@ -9,6 +9,7 @@ public class Trainmodel {
     Connection conn = null;
     String url = null;
     Statement stmt = null;
+    PreparedStatement pstmt = null;
     String sql = null;
     ResultSet rs=null;
 
@@ -57,8 +58,14 @@ public class Trainmodel {
         System.out.println("Which station do you wish to find departures for?");
         Scanner scanner = new Scanner(System.in);
         String departureStation = scanner.nextLine();
-        String SQL = "SELECT stationname, time FROM Departure WHERE stationname='"+ departureStation + "';";
-        rs = stmt.executeQuery(SQL);
+        System.out.println("Which station do you wish to find departures for?");
+        scanner = new Scanner(System.in);
+        Float time = scanner.nextFloat();
+        String psql = "SELECT stationname, time FROM Departure WHERE stationname= ? and time > ?";
+        pstmt = conn.prepareStatement(psql);
+        pstmt.setString(1, departureStation);
+        pstmt.setFloat(2,time);
+        rs = pstmt.executeQuery();
         while (rs!=null && rs.next()){
             System.out.println(rs.getString(1) + " time:" + rs.getFloat(2));
         }

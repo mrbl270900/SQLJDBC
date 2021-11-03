@@ -12,7 +12,8 @@ public class Main {
             tbd.connectToTrainData();
             tbd.CreateStatment();
             data = tbd.SQLQueryStations();
-            tbd.SQLDeparturesFromStations();
+            //tbd.SQLDeparturesFromStations();
+            tbd.pmstmtSQLDeparturesFromStations();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }finally {

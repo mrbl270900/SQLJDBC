@@ -1,34 +1,24 @@
 package com.company;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        Connection conn = null;
         String url = "jdbc:sqlite:C:/Users/madsr/IdeaProjects/TrandbOpgaver//TrainDb.sqlite";
-        Statement stmt = null;
-        String sql = "SELECT name,tracks FROM Station;";
-        ResultSet rs=null;
+        Trainmodel tbd = new Trainmodel(url);
+        ArrayList<String> data = new ArrayList<>();
         try {
-            conn = DriverManager.getConnection(url);
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
-            while (rs!=null && rs.next()){
-                String name = rs.getString("name");
-                int tracks = rs.getInt("tracks");
-                System.out.println(name);
-                System.out.println(tracks);
-            }
-
+            tbd.connectToTrainData();
+            tbd.CreateStatment();
+            data = tbd.SQLQueryStations();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }finally {
-            if(conn!=null){
                 try{
-                    conn.close();
+                    tbd.closeTrainDataCon();
                 }catch (SQLException e2){
                     System.out.println(e2.getMessage());
                 }
-            }
         }
     }
 }
